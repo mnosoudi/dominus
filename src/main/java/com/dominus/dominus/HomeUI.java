@@ -6,6 +6,9 @@ import java.security.NoSuchAlgorithmException;
 
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.event.FieldEvents;
+import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.event.FieldEvents.FocusListener;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
@@ -44,8 +47,25 @@ public class HomeUI extends UI {
       	
       	final TextField username = new TextField();
       	username.setInputPrompt("Username");
-      	final PasswordField password = new PasswordField();
-      	//password.setInputPrompt("Password");
+      	final TextField password = new TextField();
+      	final PasswordField tmpPassword = new PasswordField();
+      	password.setInputPrompt("Password");
+      	
+      	password.addFocusListener(new FocusListener() {
+      		public void focus (FieldEvents.FocusEvent event) {
+      			topbar.replaceComponent(password, tmpPassword);
+      			tmpPassword.focus();
+      		}
+      	});
+      	
+      	tmpPassword.addBlurListener(new BlurListener () {
+      		public void blur (FieldEvents.BlurEvent event) {
+      			password.setValue(tmpPassword.getValue());
+      			if (password.getValue().isEmpty()) {
+      				topbar.replaceComponent(tmpPassword, password);
+      			}
+      		}
+      	});
       	
       	Button login = new Button("Login", event -> {
 			try {
@@ -60,7 +80,7 @@ public class HomeUI extends UI {
         topbar.addComponents(username,password,login);
       	topbar.setComponentAlignment(login, Alignment.MIDDLE_RIGHT);
       	topbar.setComponentAlignment(password, Alignment.MIDDLE_RIGHT);
-        topbar.setComponentAlignment(username, Alignment.MIDDLE_RIGHT);
+         topbar.setComponentAlignment(username, Alignment.MIDDLE_RIGHT);
         
         //search bar design
         final TextField search = new TextField();
