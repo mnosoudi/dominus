@@ -1,4 +1,4 @@
-package com.dominus.dominus;
+/*package com.dominus.dominus;
 
 import static org.junit.Assert.*;
 import java.io.UnsupportedEncodingException;
@@ -73,4 +73,4 @@ public class loginTest extends TestCase {
 		testAuthorizer.authorize("username123", "********");	
 	}
 	
-}
+}*/
