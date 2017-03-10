@@ -1,9 +1,14 @@
 package com.dominus.dominus;
 
-import javax.servlet.annotation.WebServlet;
-import java.io.*; 
+import javax.servlet.annotation.WebServlet; 
+import java.io.*;
+import java.security.NoSuchAlgorithmException;
+
 import com.vaadin.annotations.Theme;
 import com.vaadin.annotations.VaadinServletConfiguration;
+import com.vaadin.event.FieldEvents;
+import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.event.FieldEvents.FocusListener;
 import com.vaadin.server.FileResource;
 import com.vaadin.server.ThemeResource;
 import com.vaadin.server.VaadinRequest;
@@ -15,7 +20,10 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.MenuBar;
+import com.vaadin.ui.MenuBar.MenuItem;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
 import com.vaadin.ui.VerticalLayout;
 
@@ -31,18 +39,62 @@ public class HomeUI extends UI {
 
     @Override
     protected void init(VaadinRequest vaadinRequest) {
-        final HorizontalLayout layout = new HorizontalLayout();
+        final VerticalLayout layout = new VerticalLayout();
         final HorizontalLayout searchbar = new HorizontalLayout();
+      	final HorizontalLayout topbar = new HorizontalLayout();
+        final HorizontalLayout bar2 = new HorizontalLayout();
+      	Authorizer authorizer = new Authorizer();
+      	
+      	final TextField username = new TextField();
+      	username.setInputPrompt("Username");
+      	final TextField password = new TextField();
+      	final PasswordField tmpPassword = new PasswordField();
+      	password.setInputPrompt("Password");
+      	
+      	password.addFocusListener(new FocusListener() {
+      		public void focus (FieldEvents.FocusEvent event) {
+      			topbar.replaceComponent(password, tmpPassword);
+      			tmpPassword.focus();
+      		}
+      	});
+      	
+      	tmpPassword.addBlurListener(new BlurListener () {
+      		public void blur (FieldEvents.BlurEvent event) {
+      			password.setValue(tmpPassword.getValue());
+      			if (password.getValue().isEmpty()) {
+      				topbar.replaceComponent(tmpPassword, password);
+      			}
+      		}
+      	});
+      	
+      	Button login = new Button("Login", event -> {
+			try {
+				authorizer.authorize(username.getValue(), password.getValue());
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
+      
+      	//alignment of UI elements at the top of the page
+        topbar.addComponents(username,password,login);
+      	topbar.setComponentAlignment(login, Alignment.MIDDLE_RIGHT);
+      	topbar.setComponentAlignment(password, Alignment.MIDDLE_RIGHT);
+         topbar.setComponentAlignment(username, Alignment.MIDDLE_RIGHT);
         
+        //search bar design
         final TextField search = new TextField();
         search.setWidth("500");
-        search.setInputPrompt("Seach Landlords");
+        search.setInputPrompt("Search Landlords");
         
+        //search button
         Button button = new Button("Search");
-                
+        
+        //add UI elemtns to layout objects
         searchbar.addComponents(search, button);
-        layout.addComponent(searchbar);
-        layout.setComponentAlignment(searchbar, Alignment.MIDDLE_CENTER);        
+        layout.addComponents(topbar, searchbar);
+      	layout.setComponentAlignment(topbar, Alignment.TOP_RIGHT);
+        layout.setComponentAlignment(searchbar, Alignment.TOP_CENTER);        
 
         layout.setMargin(true);
         layout.setSpacing(true);
