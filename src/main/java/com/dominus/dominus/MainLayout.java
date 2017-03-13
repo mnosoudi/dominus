@@ -1,13 +1,19 @@
 package com.dominus.dominus;
 
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Iterator;
 
+import com.vaadin.event.FieldEvents;
+import com.vaadin.event.FieldEvents.BlurListener;
+import com.vaadin.event.FieldEvents.FocusListener;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
+import com.vaadin.server.VaadinRequest;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
 
 public class MainLayout extends MainLayoutDesign implements ViewDisplay {
@@ -22,6 +28,33 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
         if (navigator.getState().isEmpty()) {
             navigator.navigateTo(SearchView.VIEW_NAME);
         }
+        
+        Authorizer authorizer = new Authorizer();
+      	final PasswordField tmpPassword = new PasswordField();
+      	password.addFocusListener(new FocusListener() {
+      		public void focus (FieldEvents.FocusEvent event) {
+      			menu.replaceComponent(password, tmpPassword);
+      			tmpPassword.focus();
+      		}
+      	});
+      	
+      	tmpPassword.addBlurListener(new BlurListener () {
+      		public void blur (FieldEvents.BlurEvent event) {
+      			password.setValue(tmpPassword.getValue());
+      			if (password.getValue().isEmpty()) {
+      				menu.replaceComponent(tmpPassword, password);
+      			}
+      		}
+      	});
+        
+      	login.addClickListener(event -> {
+    		try {
+    			authorizer.authorize(username.getValue(), password.getValue());
+    		} catch (NoSuchAlgorithmException e) {
+    			// TODO Auto-generated catch block
+    			e.printStackTrace();
+    		}
+    	});
     }
 
     private void doNavigate(String viewName) {
