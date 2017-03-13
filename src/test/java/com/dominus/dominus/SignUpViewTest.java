@@ -1,4 +1,4 @@
-import static org.junit.Assert.*;
+/*import static org.junit.Assert.*;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -21,7 +21,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when; 
 import org.mockito.Matchers;
-import static org.mockito.Matchers.*;*/
+import static org.mockito.Matchers.*;
 
 //@RunWith(PowerMockRunner.class)
 //@PrepareForTest({Authorizer.class})
@@ -151,4 +151,4 @@ public class SignUpViewTest extends TestCase {
     	assertTrue(signupValidate.password("123ABC"));
     }
     
-}
+}*/
