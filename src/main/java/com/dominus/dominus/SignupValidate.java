@@ -1,5 +1,7 @@
 package com.dominus.dominus;
 
+import java.util.Scanner;
+
 public class SignupValidate 
 {
 	
@@ -9,40 +11,60 @@ public class SignupValidate
 		return false;
 	}
 	
-	
 	public boolean testLength(String name)
 	{
-		return false;
+		//boolean result = false;
+		
+		if(name == null)
+		{
+			return false;
+		}
+		
+		if(name == "")
+		{
+			return false;
+		}
+		
+		if(name.length()>20)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+		
+	
 	}
 	
 	public boolean testLetters(String name)
 	{
-		return false;
+		return name.matches("[a-zA-Z]+");
 	}
 	
 	public boolean testAt(String email)
 	{
-		return false;
+		return email.matches("[^@]*@[^@]*");
 	}
 	
 	public boolean testPeriod(String email)
 	{
-		return false;
+		return email.matches(".*[.].*");
 	}
 	
 	public boolean passwordNull(String password)
 	{
-		return false;
+		return password.equals(null);
 	}
 	
 	public boolean passwordEmpty(String password)
 	{
-		return false;
+		return password.equals("");
 	}
 	
 	public boolean passwordSize(String password)
 	{
-		return false;
+		return (password.length() >= 6 && password.length() <= 20);
 	}
 	
 }
