@@ -15,11 +15,11 @@ import com.dominus.dominus.SignupValidate;
 
 //import org.mockito.Mockito;
 import junit.framework.TestCase;
-import org.powermock.api.easymock.PowerMock;
-import org.powermock.api.easymock.annotation.Mock;
+//import org.powermock.api.easymock.PowerMock;
+//import org.powermock.api.easymock.annotation.Mock;
 import org.powermock.api.mockito.*;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+//import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when; 
 import org.mockito.Matchers;

@@ -1,5 +1,7 @@
 package com.dominus.dominus;
 
+import java.util.Scanner;
+
 public class SignupValidate 
 {
 	
@@ -22,27 +24,27 @@ public class SignupValidate
 	
 	public boolean testAt(String email)
 	{
-		return false;
+		return email.matches("[^@]*@[^@]*");
 	}
 	
 	public boolean testPeriod(String email)
 	{
-		return false;
+		return email.matches(".*[.].*");
 	}
 	
 	public boolean passwordNull(String password)
 	{
-		return false;
+		return password.equals(null);
 	}
 	
 	public boolean passwordEmpty(String password)
 	{
-		return false;
+		return password.equals("");
 	}
 	
 	public boolean passwordSize(String password)
 	{
-		return false;
+		return (password.length() >= 6 && password.length() <= 20);
 	}
 	
 }
