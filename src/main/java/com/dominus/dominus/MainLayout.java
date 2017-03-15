@@ -11,8 +11,10 @@ import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
 import com.vaadin.server.VaadinRequest;
+import com.vaadin.server.VaadinSession;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
+import com.vaadin.ui.Label;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
 
@@ -47,9 +49,17 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
       		}
       	});
         
+      	Button logout = new Button("Logout");
       	login.addClickListener(event -> {
     		try {
-    			authorizer.authorize(username.getValue(), password.getValue());
+    			if(authorizer.authorize(username.getValue(), password.getValue())){
+    				menu.removeComponent(username);
+    				menu.removeComponent(password);
+    				menu.removeComponent(tmpPassword);
+    				menu.replaceComponent(login, logout);
+    				Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
+    				menu.addComponent(label);
+    			}
     		} catch (NoSuchAlgorithmException e) {
     			// TODO Auto-generated catch block
     			e.printStackTrace();
