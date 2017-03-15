@@ -11,15 +11,35 @@ public class SignupValidate
 		return false;
 	}
 	
-	
 	public boolean testLength(String name)
 	{
-		return false;
+		//boolean result = false;
+		
+		if(name == null)
+		{
+			return false;
+		}
+		
+		if(name == "")
+		{
+			return false;
+		}
+		
+		if(name.length()>20)
+		{
+			return false;
+		}
+		else
+		{
+			return true;
+		}
+		
+	
 	}
 	
 	public boolean testLetters(String name)
 	{
-		return false;
+		return name.matches("[a-zA-Z]+");
 	}
 	
 	public boolean testAt(String email)
