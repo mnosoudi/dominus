@@ -42,9 +42,8 @@ public class Authorizer
 			//if they match, login (bool?)	
 			 String hashedpass;
 			 hashedpass = hashIt(password);
-			 login(username, hashedpass);
+			 return login(username, hashedpass);
 			 //Returns true if login is good
-			 return true;
 			 
 		 }
 		 catch(InvalidInputException ex)
@@ -84,7 +83,7 @@ public class Authorizer
 
 	 
 	 
-	 public void login(String username, String password)
+	 public boolean login(String username, String password)
 	 {
 		 //dummy database
 		 try {
@@ -98,12 +97,16 @@ public class Authorizer
 				notif.setDelayMsec(2000);
 				notif.setPosition(Position.TOP_LEFT);
 				notif.show(Page.getCurrent());
+				return true;
 			}
-			else
+			else{
 				loginError("Username and Password do not match");
+				return false;
+			}
 		 }
 		catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			return false;
 		}
 		
 	 }
