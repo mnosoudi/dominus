@@ -1,4 +1,6 @@
-/*import static org.junit.Assert.*;
+package com.dominus.dominus;
+
+import static org.junit.Assert.*;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.text.ParseException;
@@ -13,11 +15,11 @@ import com.dominus.dominus.SignupValidate;
 
 //import org.mockito.Mockito;
 import junit.framework.TestCase;
-/*import org.powermock.api.easymock.PowerMock;
-import org.powermock.api.easymock.annotation.Mock;
+//import org.powermock.api.easymock.PowerMock;
+//import org.powermock.api.easymock.annotation.Mock;
 import org.powermock.api.mockito.*;
 import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+//import org.powermock.modules.junit4.PowerMockRunner;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.when; 
 import org.mockito.Matchers;
@@ -29,51 +31,57 @@ import static org.mockito.Matchers.*;
 public class SignUpViewTest extends TestCase {
 		
 	//This test addresses the length of the first name (over 20 characters)
-	@Test(expected = NullPointerException.class)
-	public void testFirstNameLengthOver() throws NoSuchAlgorithmException 
+	//Negative test
+	@Test
+	public void testNameLengthOver() throws NoSuchAlgorithmException 
 	{
 		SignupValidate signupValidate = new SignupValidate();
-		signupValidate.testLength("123456789012345678901");		
+		assertFalse(signupValidate.testLength("123456789012345678901"));
 	}
 		
 	//This test addresses the length of the last name (equal to 20 characters)
+	//Positive test
 	@Test
-	public void testFirstNameNameLengthUnder() throws NoSuchAlgorithmException 
+	public void testNameLengthUnder() throws NoSuchAlgorithmException 
 	{
 		SignupValidate signupValidate = new SignupValidate();
-		signupValidate.testLength("12345678901234567890");		
+		assertTrue(signupValidate.testLength("12345678901234567890"));
 	}  
 	  
 	//This test addresses if the first name is empty
-	@Test(expected = NullPointerException.class)
-	public void testFirstNameLengthEmpty() throws NoSuchAlgorithmException 
+	//Negative test
+	@Test
+	public void testNameLengthEmpty() throws NoSuchAlgorithmException 
 	{
 		SignupValidate signupValidate = new SignupValidate();
-		signupValidate.testLength("");		
+		assertFalse(signupValidate.testLength(""));
 	}
 		
 	//This test addresses if the first name is null
-	@Test(expected = NullPointerException.class)
-	public void testFirstNameLengthNull() throws NoSuchAlgorithmException 
+	//Negative test
+	@Test
+	public void testNameLengthNull() throws NoSuchAlgorithmException 
 	{
 		SignupValidate signupValidate = new SignupValidate();
-		signupValidate.testLength(null);		
+		assertFalse(signupValidate.testLength(null));
 	}
 	  
 	//This test addresses if the first name contains numbers
-	@Test(expected = NullPointerException.class)
-	public void testFirstNameNumbers() throws NoSuchAlgorithmException 
+	//Negative test
+	@Test
+	public void testNameNumbers() throws NoSuchAlgorithmException 
 	{
 		SignupValidate signupValidate = new SignupValidate();
-		signupValidate.testLetters("123456");		
+		assertFalse(signupValidate.testLetters("123456"));
 	}
 		
 	//This test addresses if the last name contains letters
+	//Positive test
 	@Test
-	public void testFirstNameLetters() throws NoSuchAlgorithmException 
+	public void testNameLetters() throws NoSuchAlgorithmException 
 	{
 		SignupValidate signupValidate = new SignupValidate();
-		signupValidate.testLetters("ALEXISTHEBEST");		
+		assertTrue(signupValidate.testLetters("ALEXISTHEBEST"));
 	}
   
 	//This test checks for an email address with only one '@' character
@@ -134,21 +142,22 @@ public class SignUpViewTest extends TestCase {
 	@Test
     public final void whenLessThan6CharactersThenExceptionIsThrown() {
 		SignupValidate signupValidate = new SignupValidate();
-        AssertFalse(signupValidate.password("123AB"));
+        assertFalse(signupValidate.passwordSize("123AB"));
     }
     
     //This test checks the more than size of the password
 	@Test(expected = RuntimeException.class)
     public final void whenMoreThan20CharactersThenExceptionIsThrown() {
 		SignupValidate signupValidate = new SignupValidate();
-        assertFalse(signupValidate.password("0123456789ABCDEFGHIJK"));
+        assertFalse(signupValidate.passwordSize("0123456789ABCDEFGHIJK"));
     }
     
     //This test checks the acceptable size of the password
     @Test
     public final void when6AndMoreCharactersThenNoExceptionIsThrown() {
     	SignupValidate signupValidate = new SignupValidate();
-    	assertTrue(signupValidate.password("123ABC"));
+    	assertTrue(signupValidate.passwordSize("123ABC"));
     }
     
-}*/
+}
+
