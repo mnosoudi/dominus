@@ -10,11 +10,14 @@ import com.vaadin.event.FieldEvents.FocusListener;
 import com.vaadin.navigator.Navigator;
 import com.vaadin.navigator.View;
 import com.vaadin.navigator.ViewDisplay;
+import com.vaadin.server.Page;
 import com.vaadin.server.VaadinRequest;
 import com.vaadin.server.VaadinSession;
+import com.vaadin.shared.Position;
 import com.vaadin.ui.Button;
 import com.vaadin.ui.Component;
 import com.vaadin.ui.Label;
+import com.vaadin.ui.Notification;
 import com.vaadin.ui.PasswordField;
 import com.vaadin.ui.UI;
 
@@ -51,19 +54,24 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
         
       	Button logout = new Button("Logout");
       	login.addClickListener(event -> {
-    		try {
-    			if(authorizer.authorize(username.getValue(), password.getValue())){
-    				menu.removeComponent(username);
-    				menu.removeComponent(password);
-    				menu.removeComponent(tmpPassword);
-    				menu.replaceComponent(login, logout);
-    				Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
-    				menu.addComponent(label);
-    			}
-    		} catch (NoSuchAlgorithmException e) {
-    			// TODO Auto-generated catch block
-    			e.printStackTrace();
-    		}
+			try {
+				if(authorizer.authorize(username.getValue(), password.getValue())){
+					loginSuccess();
+					menu.removeComponent(signup);
+					menu.removeComponent(username);
+					menu.removeComponent(password);
+					menu.removeComponent(login);
+					menu.removeComponent(tmpPassword);
+					Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
+					menu.addComponent(label);
+					menu.addComponent(logout);
+				}
+				else
+					loginError();
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
     	});
     }
 
@@ -100,4 +108,29 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
             throw new IllegalArgumentException("View is not a Component");
         }
     }
+    
+    //displays error message when invalid input is entered
+    public void loginError()
+    {
+		 Notification notif = new Notification(
+				    "Login Error",
+				    "Wrong username or password",
+				    Notification.Type.ERROR_MESSAGE);
+		 notif.setDelayMsec(2000);
+		 //position message in the top left corner
+		 notif.setPosition(Position.TOP_LEFT);
+		 notif.show(Page.getCurrent());
+	 }
+    
+	public void loginSuccess()
+	{
+		Notification notif = new Notification(
+				"Login", 
+				"Login was Successful",
+				Notification.Type.HUMANIZED_MESSAGE);
+		notif.setDelayMsec(2000);
+		notif.setPosition(Position.TOP_LEFT);
+		notif.show(Page.getCurrent());
+	}
+
 }
