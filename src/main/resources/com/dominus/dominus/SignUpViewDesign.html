@@ -13,7 +13,7 @@
    <vaadin-css-layout style-name="form-section">
     <vaadin-css-layout style-name="input-group">
      <vaadin-css-layout style-name="input-wrapper">
-      <vaadin-text-field caption="First Name" input-prompt=""></vaadin-text-field>
+      <vaadin-text-field caption="First Name" input-prompt="" _id="firstName"></vaadin-text-field>
       <vaadin-text-field caption="Password" _id="password"></vaadin-text-field>
       <vaadin-text-field caption="Email" _id="email"></vaadin-text-field>
      </vaadin-css-layout>
@@ -38,20 +38,17 @@
     <vaadin-css-layout style-name="input-group" width-full>
      <vaadin-css-layout style-name="input-wrapper">
       <vaadin-horizontal-layout>
-       <vaadin-check-box caption="I agree the" _id="checkAgree" :middle></vaadin-check-box>
+       <vaadin-check-box caption="I agree to the" height="19px" _id="checkAgree" :middle></vaadin-check-box>
        <vaadin-label size-auto>
          &nbsp; 
        </vaadin-label>
-       <vaadin-link caption="terms" _id="linkTerms" :middle :right></vaadin-link>
+       <vaadin-link caption="Terms and Conditions" _id="linkTerms" :middle :right></vaadin-link>
       </vaadin-horizontal-layout>
      </vaadin-css-layout>
      <vaadin-css-layout style-name="input-wrapper">
       <vaadin-horizontal-layout spacing>
        <vaadin-button style-name="primary" plain-text _id="submit">
          Submit 
-       </vaadin-button>
-       <vaadin-button plain-text _id="cancel">
-         Cancel 
        </vaadin-button>
       </vaadin-horizontal-layout>
      </vaadin-css-layout>
