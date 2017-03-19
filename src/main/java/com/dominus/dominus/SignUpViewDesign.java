@@ -8,6 +8,7 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.Link;
 import com.vaadin.ui.OptionGroup;
 import com.vaadin.ui.TextField;
+import com.vaadin.ui.Upload;
 import com.vaadin.ui.declarative.Design;
 
 /** 
@@ -28,9 +29,11 @@ public class SignUpViewDesign extends CssLayout {
 	protected TextField lastName;
 	protected TextField confirmpass;
 	protected OptionGroup query;
+	protected Upload upload;
 	protected CheckBox checkAgree;
 	protected Link linkTerms;
 	protected Button submit;
+	protected Button cancel;
 
 	public SignUpViewDesign() {
 		Design.read(this);
