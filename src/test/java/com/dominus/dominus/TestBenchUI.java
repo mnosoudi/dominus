@@ -23,19 +23,7 @@ public class TestBenchUI extends TestBenchTestCase {
 	@Test
 	public void openTestUrl() {
 		getDriver().get("http://localhost:8080/dominus");
-	
-
-		    // Find an element to interact upon
-		    ButtonElement button =
-		        $(ButtonElement.class).id("login");
-
-		    // Click the button
-		    button.click();
-		    
-		    // Check that the label text is correct
-		    LabelElement label = $(LabelElement.class).first();
-		    assertEquals("Login was Successful", label.getText());
-		}
+	}
 
 	@After
 	public void teatDown() throws Exception {
