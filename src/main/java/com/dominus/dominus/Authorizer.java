@@ -79,5 +79,9 @@ public class Authorizer
 		 else
 			 return false;
 	 }
+	 
+	 public void logout(){
+		 VaadinSession.getCurrent().setAttribute("user", null);
+	 }
 }
 

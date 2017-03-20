@@ -25,6 +25,7 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
 
     private static final String STYLE_SELECTED = "selected";
     private Navigator navigator;
+    private Label label;
 
     public MainLayout() {
         navigator = new Navigator(UI.getCurrent(), (ViewDisplay) this);
@@ -63,7 +64,7 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
 					menu.removeComponent(password);
 					menu.removeComponent(login);
 					menu.removeComponent(tmpPassword);
-					Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
+					label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
 					menu.addComponent(label);
 					menu.addComponent(logout);
 				}
@@ -73,6 +74,17 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+    	});
+      	
+      	logout.addClickListener(event -> {
+					menu.addComponent(signup);
+					menu.addComponent(username);
+					menu.addComponent(password);
+					menu.addComponent(login);
+					menu.addComponent(tmpPassword);
+					menu.removeComponent(logout);
+					menu.removeComponent(label);
+					authorizer.logout();
     	});
     }
 
