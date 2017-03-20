@@ -87,10 +87,11 @@ public class SignUpView extends SignUpViewDesign implements View {
             		success = false;
             	}
             		
-                //Displays success notification if all of the fields are valid
+                //call success method if all of the fields are valid
             	if(success == true)
             	{
-            		signupSuccess();
+            		signupSuccess(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue());
+            		getUI().getNavigator().navigateTo("search");
             	}
             	
             	
@@ -114,12 +115,18 @@ public class SignUpView extends SignUpViewDesign implements View {
 		 notif.show(Page.getCurrent());
 	 }
     
-    //Success Notification
-	 public void signupSuccess()
+    //Send data to database and show Success Notification
+	 public void signupSuccess(String firstName, String lastName, String email, String password)
 	 {
+		 String message;
+		 if (query.getValue().equals("Landlord")){
+			 message = "Signup for landlord account was successful.\nAdmin has recieved your registration number, you will be reviewed for verification shortly";
+		 }
+		 else
+			 message = "Signup for tenant account was successful";
 		 Notification notif = new Notification(
 				    "Signup Success",
-				    "Signup was successful",
+				    message,
 				    Notification.Type.HUMANIZED_MESSAGE);
 		 notif.setDelayMsec(2000);
 		 notif.setPosition(Position.TOP_LEFT);
