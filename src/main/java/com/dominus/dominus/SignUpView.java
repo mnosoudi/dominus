@@ -18,15 +18,16 @@ public class SignUpView extends SignUpViewDesign implements View {
 
     public SignUpView()
     {
-    	upload.setVisible(false);
+    	//gets the landlords registration number
+    	registrationNumber.setVisible(false);
     	query.addValueChangeListener(new Property.ValueChangeListener() {
 			
 			@Override
 			public void valueChange(ValueChangeEvent event) {
 				if(query.getValue().equals("Landlord"))
-					upload.setVisible(true);
+					registrationNumber.setVisible(true);
 				else
-					upload.setVisible(false);
+					registrationNumber.setVisible(false);
 					
 			}
 		});
