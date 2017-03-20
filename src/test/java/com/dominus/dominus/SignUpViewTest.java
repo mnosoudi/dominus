@@ -159,5 +159,19 @@ public class SignUpViewTest extends TestCase {
     	assertTrue(signupValidate.passwordSize("123ABC"));
     }
     
+    //This test checks for a registration number for the Landlord if is null
+    @Test
+    public final void isLandlordRegistrationNumberAvailable(){
+    	SignupValidate signupValidate = new SignupValidate();
+    	assertNull(signupValidate.validateRegistrationNull(null));
+    }
+    
+    //This test check if the registration number is empty
+    @Test
+    public final void isLandlordRegistrationNumberEmpty(){
+    	SignupValidate signupValidate = new SignupValidate();
+    	assertTrue(signupValidate.validateRegistrationEmpty(""));
+    }
+    
 }
 
