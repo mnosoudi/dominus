@@ -79,8 +79,8 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
       	logout.addClickListener(event -> {
 					menu.addComponent(signup);
 					menu.addComponent(username);
-					menu.addComponent(login);
 					menu.addComponent(tmpPassword);
+					menu.addComponent(login);
 					menu.removeComponent(logout);
 					menu.removeComponent(label);
 					authorizer.logout();
