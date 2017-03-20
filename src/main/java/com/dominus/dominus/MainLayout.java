@@ -55,6 +55,7 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
         
       	Button logout = new Button("Logout");
       	login.addStyleName("friendly");
+      	logout.addStyleName("friendly");
       	login.addClickListener(event -> {
 			try {
 				if(authorizer.authorize(username.getValue(), password.getValue())){
