@@ -32,7 +32,6 @@ public class SignUpViewDesign extends CssLayout {
 	protected CheckBox checkAgree;
 	protected Link linkTerms;
 	protected Button submit;
-	protected Button cancel;
 
 	public SignUpViewDesign() {
 		Design.read(this);
