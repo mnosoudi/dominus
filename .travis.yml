@@ -1,4 +1,6 @@
 language: java
+before_install: "./.travis.before_install.sh"
+script: "./.travis.script.sh"
 install:
 - mvn install
 jdk:
@@ -10,4 +12,4 @@ deploy:
   app: dominus-app
   on:
     repo: mnosoudi/dominus
-    branch: searchbar_background
+    branch: VerifyLandlord
