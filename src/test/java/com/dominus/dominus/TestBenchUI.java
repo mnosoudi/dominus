@@ -2,10 +2,12 @@ package com.dominus.dominus;
 
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import com.vaadin.testbench.*;
 import com.vaadin.testbench.elements.ButtonElement;
 import com.vaadin.testbench.elements.LabelElement;
+import com.vaadin.testbench.elements.TextFieldElement;
 
 public class TestBenchUI extends TestBenchTestCase {
 
@@ -14,27 +16,43 @@ public class TestBenchUI extends TestBenchTestCase {
 	
 	@Before
 	public void setUp() throws Exception {
-		setDriver(new FirefoxDriver());
+		System.setProperty("webdriver.chrome.driver", "/Users/adamwoodland/Downloads/chromedriver");
+		setDriver(new ChromeDriver());
 	}
 	
-	private void openTestUrl() {
+	@Test
+	public void openTestUrl() {
 		getDriver().get("http://localhost:8080/dominus");
-	
-
-		    // Find an element to interact upon
-		    ButtonElement button =
-		        $(ButtonElement.class).id("login");
-
-		    // Click the button
-		    button.click();
-
-		    // Check that the label text is correct
-		    LabelElement label = $(LabelElement.class).first();
-		    assertEquals("Login was Successful", label.getText());
-		}
-		
-		
-		
-		
 	}
+	
+	@Test
+	public void testSearchButton() {
+		// Find an element to interact upon
+		ButtonElement logInButton = $(ButtonElement.class).caption("Search").first();
+	    logInButton.click();
+	}
+	
+	@Test
+	public void testUsername() {
+		TextFieldElement textField1 = $(TextFieldElement.class).first();
+		textField1.click();
+	}
+	
+	@Test
+	public void testPassword() {
+		TextFieldElement textField2 = $(TextFieldElement.class).get(1);
+		textField2.click();
+	}
+	
+	@Test
+	public void testLogIn() {
+		ButtonElement logInButton = $(ButtonElement.class).caption("Log In").first();
+		logInButton.click();
+	}
+
+	@After
+	public void teatDown() throws Exception {
+		driver.quit();
+	}
+}
 	

@@ -122,5 +122,15 @@ public class SignupValidate
 	{
 		return (password.length() >= 6 && password.length() <= 20);
 	}
+
+	public boolean validateRegistrationNull(String string) {
+		return string.equals(null);
+	}
+
+	public boolean validateRegistrationEmpty(String string) {
+		// TODO Auto-generated method stub
+		string = "";
+		return string.isEmpty();
+	}
 	
 }
