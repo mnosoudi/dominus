@@ -1,6 +1,5 @@
 package com.dominus.dominus;
 
-import java.util.Base64;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import javax.crypto.SecretKey;
@@ -29,56 +28,44 @@ public class Authorizer
 		 Pattern pattern = Pattern.compile("\\b[a-zA-Z][a-zA-Z0-9\\-._]{7,}\\b");
 		 Matcher unamematcher = pattern.matcher(username);
 		 Matcher pwdmatcher = pattern.matcher(password);
+		 boolean success = false;
 		 
-		 
-		 //Displays success message if there are no errors
-		 try
-		 {
-			 if(!unamematcher.find() || !pwdmatcher.find()){
-					throw new InvalidInputException();
+			 if(unamematcher.matches() && pwdmatcher.matches()){
+				 String hashedpass;
+				 hashedpass = hashIt(password);
+				 if(login(username, hashedpass))
+					 VaadinSession.getCurrent().setAttribute("user", username);
+					 success = true;
 			 }
-			//hash password
-			//check username and hashed password against database
-			//if they match, login (bool?)	
-			 String hashedpass;
-			 hashedpass = hashIt(password);
-			 return login(username, hashedpass);
-			 //Returns true if login is good
-			 
-		 }
-		 catch(InvalidInputException ex)
-		 {
-			 loginError("Invalid username or password");
-			 //Returns false if there was an error
-			 return false;
-		 }
-		 
-		 
-		 
-	 }
-	 
-	 //displays error message when invalid input is entered
-	 public void loginError(String errorMessage)
-	 {
-		 Notification notif = new Notification(
-				    "Login Error",
-				    errorMessage,
-				    Notification.Type.ERROR_MESSAGE);
-		 notif.setDelayMsec(2000);
-		 //position message in the top left corner
-		 notif.setPosition(Position.TOP_LEFT);
-		 notif.show(Page.getCurrent());
+			 else
+				 success = false;
+			 return success;
 	 }
 	 
 
+	 
+
 	 //password hasher method
-	 public String hashIt(String b) throws NoSuchAlgorithmException{
-			MessageDigest messageDigest = MessageDigest.getInstance("SHA-256"); 
-			//one-way encryption for database
-			messageDigest.update(b.getBytes());
-			String encryptedString = new String(messageDigest.digest());
-			return encryptedString;
-		}
+	 public String hashIt(String password)
+	 {
+	        try {
+	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            md.update(password.getBytes());
+	            byte[] bytes = md.digest();
+	            //convert string to hex
+	            StringBuilder sb = new StringBuilder();
+	            for(int i=0; i< bytes.length ;i++)
+	            {
+	                sb.append(Integer.toString((bytes[i] & 0xff) + 0x100, 16).substring(1));
+	            }
+	            return sb.toString();
+	        } 
+	        catch (NoSuchAlgorithmException e) 
+	        {
+	        	return null;
+	        }
+	   }
+	
 	
 
 	 
@@ -86,29 +73,15 @@ public class Authorizer
 	 public boolean login(String username, String password)
 	 {
 		 //dummy database
-		 try {
-			String hashedpass = hashIt("test12345");
-			if(username.equals("username123") && password.equals(hashedpass)){
-				VaadinSession.getCurrent().setAttribute("user", username);
-				Notification notif = new Notification(
-					    "Login",
-					    "Login was Successful",
-					    Notification.Type.HUMANIZED_MESSAGE);
-				notif.setDelayMsec(2000);
-				notif.setPosition(Position.TOP_LEFT);
-				notif.show(Page.getCurrent());
-				return true;
-			}
-			else{
-				loginError("Username and Password do not match");
-				return false;
-			}
-		 }
-		catch (NoSuchAlgorithmException e) {
-			e.printStackTrace();
-			return false;
-		}
-		
+		 String hashedpass = hashIt("test12345");
+		 if(username.equals("username123") && password.equals(hashedpass))
+			 return true;
+		 else
+			 return false;
+	 }
+	 
+	 public void logout(){
+		 VaadinSession.getCurrent().setAttribute("user", null);
 	 }
 }
 
