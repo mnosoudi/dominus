@@ -30,50 +30,54 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
         navigator = new Navigator(UI.getCurrent(), (ViewDisplay) this);
         addNavigatorView(SearchView.VIEW_NAME, SearchView.class, search);
         addNavigatorView(SignUpView.VIEW_NAME, SignUpView.class, signup);
+        addNavigatorView(LoginView.VIEW_NAME, LoginView.class, login);
         if (navigator.getState().isEmpty()) {
             navigator.navigateTo(SearchView.VIEW_NAME);
         }
         
-        Authorizer authorizer = new Authorizer();
-      	final PasswordField tmpPassword = new PasswordField();
-      	password.addFocusListener(new FocusListener() {
-      		public void focus (FieldEvents.FocusEvent event) {
-      			menu.replaceComponent(password, tmpPassword);
-      			tmpPassword.focus();
-      		}
-      	});
-      	
-      	tmpPassword.addBlurListener(new BlurListener () {
-      		public void blur (FieldEvents.BlurEvent event) {
-      			password.setValue(tmpPassword.getValue());
-      			if (password.getValue().isEmpty()) {
-      				menu.replaceComponent(tmpPassword, password);
-      			}
-      		}
-      	});
+        
+        
+//        Authorizer authorizer = new Authorizer();
+//      	final PasswordField tmpPassword = new PasswordField();
+//      	password.addFocusListener(new FocusListener() {
+//      		public void focus (FieldEvents.FocusEvent event) {
+//      			menu.replaceComponent(password, tmpPassword);
+//      			tmpPassword.focus();
+//      		}
+//      	});
+//      	
+//      	tmpPassword.addBlurListener(new BlurListener () {
+//      		public void blur (FieldEvents.BlurEvent event) {
+//      			password.setValue(tmpPassword.getValue());
+//      			if (password.getValue().isEmpty()) {
+//      				menu.replaceComponent(tmpPassword, password);
+//      			}
+//      		}
+//      	});
         
       	Button logout = new Button("Logout");
-      	login.addStyleName("friendly");
-      	login.addClickListener(event -> {
-			try {
-				if(authorizer.authorize(username.getValue(), password.getValue())){
-					loginSuccess();
-					menu.removeComponent(signup);
-					menu.removeComponent(username);
-					menu.removeComponent(password);
-					menu.removeComponent(login);
-					menu.removeComponent(tmpPassword);
-					Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
-					menu.addComponent(label);
-					menu.addComponent(logout);
-				}
-				else
-					loginError();
-			} catch (NoSuchAlgorithmException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-    	});
+      	//login.addStyleName("friendly");
+      	
+//      	login.addClickListener(event -> {
+//			try {
+//				if(authorizer.authorize(username.getValue(), password.getValue())){
+//					loginSuccess();
+//					menu.removeComponent(signup);
+//					menu.removeComponent(username);
+//					menu.removeComponent(password);
+//					menu.removeComponent(login);
+//					menu.removeComponent(tmpPassword);
+//					Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
+//					menu.addComponent(label);
+//					menu.addComponent(logout);
+//				}
+//				else
+//					loginError();
+//			} catch (NoSuchAlgorithmException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//    	});
     }
 
     private void doNavigate(String viewName) {

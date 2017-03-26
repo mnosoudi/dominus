@@ -31,6 +31,15 @@ public class SignUpView extends SignUpViewDesign implements View {
 					
 			}
 		});
+    	
+    	cancel.addClickListener(new Button.ClickListener() {
+			
+			@Override
+			public void buttonClick(ClickEvent event) {
+				// TODO Auto-generated method stub
+				getUI().getNavigator().navigateTo("login");
+			}
+		});
     }
 
     @Override
