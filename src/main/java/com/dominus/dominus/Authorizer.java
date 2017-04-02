@@ -30,7 +30,7 @@ public class Authorizer
 		 Matcher pwdmatcher = pattern.matcher(password);
 		 boolean success = false;
 		 
-			 if(!unamematcher.matches() || !pwdmatcher.matches()){
+			 if(unamematcher.matches() && pwdmatcher.matches()){
 				 String hashedpass;
 				 hashedpass = hashIt(password);
 				 if(login(username, hashedpass))
@@ -78,6 +78,10 @@ public class Authorizer
 			 return true;
 		 else
 			 return false;
+	 }
+	 
+	 public void logout(){
+		 VaadinSession.getCurrent().setAttribute("user", null);
 	 }
 }
 

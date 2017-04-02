@@ -25,6 +25,9 @@ public class LoginView extends LoginViewDesign implements View {
 	 */
 	public static final String VIEW_NAME = "login";
 	
+	MainLayout jMain = new MainLayout();
+	
+	
 	public LoginView(){
 		
 		btnLogin.addClickListener(new Button.ClickListener() {
@@ -32,15 +35,13 @@ public class LoginView extends LoginViewDesign implements View {
 			Authorizer authorize = new Authorizer();
 			
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(Button.ClickEvent event) {
 				// TODO Auto-generated method stub
 				try {
 					if(authorize.authorize(userName.getValue(), password.getValue())){
 						//login successful
 						getUI().getNavigator().navigateTo("search");
-						Label label = new Label("Signed in as " + (String) VaadinSession.getCurrent().getAttribute("user"));
-						addComponent(label);
-						addComponent(btnSignup);
+						Notification.show("Login Successful", Notification.Type.HUMANIZED_MESSAGE);
 						//reset UI Components
 						userName.setValue("");
 						password.setValue("");
@@ -58,7 +59,7 @@ public class LoginView extends LoginViewDesign implements View {
 		btnSignup.addClickListener(new Button.ClickListener() {
 			
 			@Override
-			public void buttonClick(ClickEvent event) {
+			public void buttonClick(Button.ClickEvent event) {
 				// TODO Auto-generated method stub
 				getUI().getNavigator().navigateTo("signup");
 			}
