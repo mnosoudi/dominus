@@ -2,6 +2,9 @@ package com.dominus.dominus;
 
 import org.junit.*;
 import static org.junit.Assert.assertEquals;
+
+import java.util.List;
+
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import com.vaadin.testbench.*;
@@ -20,38 +23,43 @@ public class TestBenchUI extends TestBenchTestCase {
 		setDriver(new ChromeDriver());
 	}
 	
-	@Test
 	public void openTestUrl() {
-		getDriver().get("http://localhost:8080/dominus");
+		getDriver().get("http://localhost:8080");
 	}
 	
 	@Test
-	public void testSearchButton() {
-		// Find an element to interact upon
-		ButtonElement logInButton = $(ButtonElement.class).caption("Search").first();
-	    logInButton.click();
+	public void testSearch() {
+		openTestUrl();
+		ButtonElement SearchButton = $(ButtonElement.class).caption("Search").first();
+	    SearchButton.click();
+	    assertEquals(1, $(TextFieldElement.class).all().size());
+	    assertEquals("Search Landlords", $(TextFieldElement.class).first().getCaption());
 	}
 	
 	@Test
-	public void testUsername() {
-		TextFieldElement textField1 = $(TextFieldElement.class).first();
-		textField1.click();
+	public void testSignUp() {
+		openTestUrl();
+		ButtonElement SignUpButton = $(ButtonElement.class).caption("Sign Up").first();
+		SignUpButton.click();
+		assertEquals("Sign Up for Dominus", $(LabelElement.class).first().getText());
+		assertEquals(5, $(TextFieldElement.class).all().size());
+		assertEquals("First Name", $(TextFieldElement.class).all().get(0).getCaption());
+		assertEquals("Password", $(TextFieldElement.class).all().get(1).getCaption());
+		assertEquals("Email", $(TextFieldElement.class).all().get(2).getCaption());
+		assertEquals("Last Name", $(TextFieldElement.class).all().get(3).getCaption());
+		assertEquals("Confirm Password", $(TextFieldElement.class).all().get(4).getCaption());
 	}
 	
 	@Test
-	public void testPassword() {
-		TextFieldElement textField2 = $(TextFieldElement.class).get(1);
-		textField2.click();
-	}
-	
-	@Test
-	public void testLogIn() {
-		ButtonElement logInButton = $(ButtonElement.class).caption("Log In").first();
-		logInButton.click();
+	public void testLogInButton() {
+		openTestUrl();
+		List<ButtonElement> allButtons = $(ButtonElement.class).all();
+		ButtonElement LogInButton = allButtons.get(2);
+		LogInButton.click();
 	}
 
 	@After
-	public void teatDown() throws Exception {
+	public void testDown() throws Exception {
 		driver.quit();
 	}
 }
