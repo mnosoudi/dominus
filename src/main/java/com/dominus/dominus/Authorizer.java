@@ -33,9 +33,10 @@ public class Authorizer
 			 if(unamematcher.matches() && pwdmatcher.matches()){
 				 String hashedpass;
 				 hashedpass = hashIt(password);
-				 if(login(username, hashedpass))
+				 if(login(username, hashedpass)) {
 					 VaadinSession.getCurrent().setAttribute("user", username);
 					 success = true;
+				 }
 			 }
 			 else
 				 success = false;
