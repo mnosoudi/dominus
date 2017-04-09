@@ -1,11 +1,14 @@
 package com.dominus.db;
 
+import java.io.IOException;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.transaction.Transaction;
 
-import com.dominus.dominus.User;
+import com.dominus.dominus.Tenant;
+//import com.dominus.dominus.User;
 
 public class UserJPAController {
 
@@ -14,21 +17,17 @@ public class UserJPAController {
 	public UserJPAController(EntityManagerFactory emf){
 		this.emf = emf;
 	}
-	public void create(User user){
+	public void create(Tenant user) throws IOException{
 		EntityManager em = this.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		try{
 		tx.begin();
 		//WRIT
 		tx.commit();
-		}catch(.){
-			
-		}
 	}
-	public User findUserUsingId(String id){
+	public Tenant findUserUsingId(String id){
 		EntityManager em = this.getEntityManager();
 		//error handling
-		return em.find(User.class, id);
+		return em.find(Tenant.class, id);
 	}
 	private EntityManager getEntityManager(){
 		if(this.emf == null){
