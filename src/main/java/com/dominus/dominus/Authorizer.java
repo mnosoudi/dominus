@@ -33,9 +33,10 @@ public class Authorizer
 			 if(unamematcher.matches() && pwdmatcher.matches()){
 				 String hashedpass;
 				 hashedpass = hashIt(password);
-				 if(login(username, hashedpass))
+				 if(login(username, hashedpass)){
 					 VaadinSession.getCurrent().setAttribute("user", username);
 					 success = true;
+				 }
 			 }
 			 else
 				 success = false;
@@ -49,7 +50,7 @@ public class Authorizer
 	 public String hashIt(String password)
 	 {
 	        try {
-	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            MessageDigest md = MessageDigest.getInstance("SHA-512");
 	            md.update(password.getBytes());
 	            byte[] bytes = md.digest();
 	            //convert string to hex
