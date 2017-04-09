@@ -21,26 +21,26 @@ import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.v7.ui.VerticalLayout;
 
-public class LandLordView extends LandLordViewDesign implements View{
-	public static final String VIEW_NAME = "landlord";
+public class TenantView extends TenantDesign implements View{
+	public static final String VIEW_NAME = "Tenant";
 	
-	public LandLordView(){
-		Table landlords = new Table();
-		landlords.addContainerProperty("Landlords", String.class, null);
+	public TenantView(){
+		Table Tenants = new Table();
+		Tenants.addContainerProperty("Tenants", String.class, null);
 		
-		Object landlord = landlords.addItem();
-		Item landlorditem = landlords.getItem(landlord);
-		landlorditem.getItemProperty("Landlords").setValue("John Doe");
-		hlayout.addComponent(landlords);
-		hlayout.setComponentAlignment(landlords, Alignment.MIDDLE_LEFT);
+		Object Tenant = Tenants.addItem();
+		Item Tenantitem = Tenants.getItem(Tenant);
+		Tenantitem.getItemProperty("Tenants").setValue("John Doe");
+		hlayout.addComponent(Tenants);
+		hlayout.setComponentAlignment(Tenants, Alignment.MIDDLE_LEFT);
 		VerticalLayout vlayout = new VerticalLayout();
 		hlayout.addComponent(vlayout);
 		hlayout.setComponentAlignment(vlayout, Alignment.MIDDLE_RIGHT);
-		Label landlordName = new Label();
-		Label landlordRating = new Label();
-		vlayout.addComponents(landlordName, landlordRating);
-		vlayout.setComponentAlignment(landlordName, Alignment.TOP_CENTER);
-		vlayout.setComponentAlignment(landlordRating, Alignment.BOTTOM_CENTER);
+		Label TenantName = new Label();
+		Label TenantRating = new Label();
+		vlayout.addComponents(TenantName, TenantRating);
+		vlayout.setComponentAlignment(TenantName, Alignment.TOP_CENTER);
+		vlayout.setComponentAlignment(TenantRating, Alignment.BOTTOM_CENTER);
 		OptionGroup rating = new OptionGroup("Rating");
 		
 		Button submitRate = new Button("Submit Rating");
@@ -50,18 +50,18 @@ public class LandLordView extends LandLordViewDesign implements View{
 		vlayout.addComponents(rating,submitRate);
 		//vlayout.addComponent(submitRate);
 		rating.setVisible(false);
-		landlords.setSelectable(true);
+		Tenants.setSelectable(true);
 		submitRate.setVisible(false);
 		
 		
-		landlords.addItem();
+		Tenants.addItem();
 		
-		landlords.addItemClickListener(new ItemClickEvent.ItemClickListener() {
+		Tenants.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			  @Override
 			  public void itemClick(ItemClickEvent event) {
 				  rating.setVisible(true);
-				  landlordName.setValue("John Doe");
-				  landlordRating.setValue("Rating: 5");
+				  TenantName.setValue("John Doe");
+				  TenantRating.setValue("Rating: 5");
 				  submitRate.setVisible(true);
 				  
 				  submitRate.addClickListener(new Button.ClickListener() {
@@ -74,14 +74,14 @@ public class LandLordView extends LandLordViewDesign implements View{
 				});
 				
 				  
-			  //int landlordID = landlords.getValue().getID();
-			  //landlordName.setCaption(database.get(id = landlordID));
+			  //int TenantID = Tenants.getValue().getID();
+			  //TenantName.setCaption(database.get(id = TenantID));
 			  //andlordRating.setCaption(database.getTotalRating / database.getNumberofRatings));
 			    
 			  }
 			});	
 		
-		System.out.println("Value"+landlords.getValue());
+		System.out.println("Value"+Tenants.getValue());
 		
 	}
     @Override

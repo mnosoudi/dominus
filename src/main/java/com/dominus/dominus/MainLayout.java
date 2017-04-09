@@ -32,6 +32,7 @@ public class MainLayout extends MainLayoutDesign implements ViewDisplay {
         addNavigatorView(SearchView.VIEW_NAME, SearchView.class, search);
         addNavigatorView(SignUpView.VIEW_NAME, SignUpView.class, signup);
         addNavigatorView(LandLordView.VIEW_NAME, LandLordView.class, landlord);
+        addNavigatorView(TenantView.VIEW_NAME, TenantView.class, tenant);
         //addNavigatorView(SignUpView.VIEW_NAME, SignUpView.class, signup);
         if (navigator.getState().isEmpty()) {
             navigator.navigateTo(SearchView.VIEW_NAME);
