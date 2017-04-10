@@ -47,7 +47,7 @@ public class LandLordView extends LandLordViewDesign implements View{
 		Label landlordRating = new Label();
 		
 		//submit rating button
-		Button btnSubmitRating = new Button("Submit Ratting");
+		Button btnSubmitRating = new Button("Submit Rating");
 		btnSubmitRating.addStyleName("friendly");
 		
 		//Displaying landlord's rating from the database
