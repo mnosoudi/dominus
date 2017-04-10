@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.transaction.Transaction;
 
 import com.dominus.dominus.Tenant;
@@ -41,4 +42,20 @@ public class UserJPAController {
 		return this.emf.createEntityManager();
 		}
 	}
+	
+	  public static void main(String[] args) {
+		  Tenant tnt;
+		  EntityManagerFactory emf = Persistence.createEntityManagerFactory("dominus");
+		  UserJPAController test = new UserJPAController(emf);
+		  tnt = test.findUserUsingId(1);
+		  System.out.println(tnt.getFirstName());
+		  
+		  
+		  
+		  
+		  
+		  
+	  }
+	
+	
 }
