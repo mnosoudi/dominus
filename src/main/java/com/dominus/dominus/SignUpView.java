@@ -95,11 +95,9 @@ public class SignUpView extends SignUpViewDesign implements View {
                 //call success method if all of the fields are valid
             	else if(success == true)
             	{
-            		Database.signUp(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue());
+            		Database.signUp(firstName.getValue(), lastName.getValue(), email.getValue(), Authorizer.hashIt(password.getValue()));
             		getUI().getNavigator().navigateTo("search");
             	}
-            	
-            	
             	
             }
             

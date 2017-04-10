@@ -30,7 +30,8 @@ public class TenantView extends TenantDesign implements View{
 		tenants.addContainerProperty("Tenants", String.class, null);
 		Object tenant = tenants.addItem();
 		Item tenantitem = tenants.getItem(tenant);
-		tenantitem.getItemProperty("Tenants").setValue("John Doe");
+		tenantitem.getItemProperty("Tenants").setValue(Database.getName());
+		tenantitem.getItemProperty("email").setValue(Database.getEmail());
 		tenants.setWidth("200");
 		
 		//Lists all the tenants on the database and their rating
@@ -83,14 +84,23 @@ public class TenantView extends TenantDesign implements View{
 		tenants.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			  @Override
 			  public void itemClick(ItemClickEvent event) {
-				String email = "place@hol.der"; //email is not currently in table
-			  	Object rowId = tenants.getValue(); // get the selected rows id
 		      	String name = (String)tenants.getContainerProperty(tenant,"Landlords").getValue(); 
 			  	ratingPanel.setVisible(true);
 		      	tenantName.setValue(name);
-			  	int ratingeq = Database.getRatingTotal(email)/Database.getRatingSum(email);
-			  	tenantRating.setValue(Integer.toString(ratingeq));
+			  	double ratingeq = Database.getRatingTotal()/Database.getRatingSum();
+			  	tenantRating.setValue(Double.toString(ratingeq));
+			  	
+			  	btnSubmitRating.addClickListener(new Button.ClickListener() 
+				  {
+					  public void buttonClick(ClickEvent event) 
+					  {
+						  Database.addRating((int)rating.getValue());
+						  double ratingeq = Database.getRatingTotal()/Database.getRatingSum();
+						  tenantRating.setValue(Double.toString(ratingeq));
+					  }
+				  });
 			  }
+			  
 			});	
 		
 		System.out.println("Value"+tenants.getValue());

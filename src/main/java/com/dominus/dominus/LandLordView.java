@@ -29,9 +29,11 @@ public class LandLordView extends LandLordViewDesign implements View{
 	public LandLordView(){
 		Table landlords = new Table();
 		landlords.addContainerProperty("Landlords", String.class, null);
+		landlords.addContainerProperty("email", String.class, null);
 		Object landlord = landlords.addItem();
 		Item landlorditem = landlords.getItem(landlord);
-		landlorditem.getItemProperty("Landlords").setValue("John Doe");
+		landlorditem.getItemProperty("Landlords").setValue(Database.getName());
+		landlorditem.getItemProperty("email").setValue(Database.getEmail());
 		landlords.setWidth("200");
 		
 		//Lists all the landlords on the database and their rating
@@ -80,17 +82,28 @@ public class LandLordView extends LandLordViewDesign implements View{
 		landlords.setSelectable(true);
 		landlords.addItem();
 		
+
+		
 		landlords.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			
 			  @Override
 			  public void itemClick(ItemClickEvent event) {
-				  String email = "place@hol.der"; //email is not currently in table
-				  Object rowId = landlords.getValue(); // get the selected rows id
 				  String name = (String)landlords.getContainerProperty(landlord,"Landlords").getValue(); 
 				  ratingPanel.setVisible(true);
 				  landlordName.setValue(name);
-				  double ratingeq = Database.getRatingSum(email)/Database.getRatingTotal(email);
+				  double ratingeq = Database.getRatingSum()/Database.getRatingTotal();
 				  landlordRating.setValue(Double.toString(ratingeq));
+				  
+				  btnSubmitRating.addClickListener(new Button.ClickListener() 
+				  {
+					  public void buttonClick(ClickEvent event) 
+					  {
+						  Database.addRating((int)rating.getValue());
+						  double ratingeq = (double)Database.getRatingSum()/(double)Database.getRatingTotal();
+						  landlordRating.setValue(Double.toString(ratingeq));
+						  
+					  }
+				  });
 			  }
 			});	
 		
