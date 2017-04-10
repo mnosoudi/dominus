@@ -17,8 +17,11 @@ import com.vaadin.ui.Button;
 import com.vaadin.ui.Image;
 import com.vaadin.ui.Label;
 import com.vaadin.ui.OptionGroup;
+import com.vaadin.ui.Panel;
 import com.vaadin.ui.Table;
 import com.vaadin.ui.Button.ClickEvent;
+import com.vaadin.ui.FormLayout;
+import com.vaadin.ui.HorizontalLayout;
 import com.vaadin.v7.ui.VerticalLayout;
 
 public class LandLordView extends LandLordViewDesign implements View{
@@ -27,53 +30,64 @@ public class LandLordView extends LandLordViewDesign implements View{
 	public LandLordView(){
 		Table landlords = new Table();
 		landlords.addContainerProperty("Landlords", String.class, null);
-		
 		Object landlord = landlords.addItem();
 		Item landlorditem = landlords.getItem(landlord);
 		landlorditem.getItemProperty("Landlords").setValue("John Doe");
-		hlayout.addComponent(landlords);
-		hlayout.setComponentAlignment(landlords, Alignment.MIDDLE_LEFT);
-		VerticalLayout vlayout = new VerticalLayout();
-		hlayout.addComponent(vlayout);
-		hlayout.setComponentAlignment(vlayout, Alignment.MIDDLE_RIGHT);
+		landlords.setWidth("200");
+		
+		//Lists all the landlords on the database and their rating
+		HorizontalLayout vertical = new HorizontalLayout();
+		hlayout.addComponent(vertical);
+		vertical.addComponent(landlords);
+		vertical.setComponentAlignment(landlords, Alignment.MIDDLE_CENTER);
+		//vertical.setMargin(true);
+		
+		
 		Label landlordName = new Label();
 		Label landlordRating = new Label();
-		vlayout.addComponents(landlordName, landlordRating);
-		vlayout.setComponentAlignment(landlordName, Alignment.TOP_CENTER);
-		vlayout.setComponentAlignment(landlordRating, Alignment.BOTTOM_CENTER);
+		
+		//submit rating button
+		Button btnSubmitRating = new Button("Submit Ratting");
+		btnSubmitRating.addStyleName("friendly");
+		
+		//Displaying landlord's rating from the database
+		vertical.addComponents(landlordName, landlordRating);
+		
+		HorizontalLayout ratingLayout = new HorizontalLayout();
+		ratingLayout.addComponent(landlordName);
+		ratingLayout.addComponent(landlordRating);
+		ratingLayout.setSpacing(true);
+		
+		//new rating to add to the current landlord
+		VerticalLayout newRatingLayout = new VerticalLayout();
+		HorizontalLayout newSubmitRating = new HorizontalLayout();		
+		newSubmitRating.addComponent(btnSubmitRating);
+		
 		OptionGroup rating = new OptionGroup("Rating");
-		
-		Button submitRate = new Button("Submit Rating");
-		
-		
 		rating.addItems(1,2,3,4,5);
-		vlayout.addComponents(rating,submitRate);
-		//vlayout.addComponent(submitRate);
-		rating.setVisible(false);
+		rating.addStyleName("horizontal");
+		newRatingLayout.addComponent(rating);
+		newRatingLayout.setSpacing(true);
+		FormLayout ratingForm = new FormLayout(ratingLayout, newRatingLayout, newSubmitRating);
+		ratingForm.setMargin(true);
+		
+		Panel ratingPanel = new Panel("Rating", ratingForm);
+		ratingPanel.setWidth("450");
+		ratingPanel.setHeight("300");
+		
+		vertical.addComponent(ratingPanel);
+		vertical.setSpacing(true);
+		ratingPanel.setVisible(false);
 		landlords.setSelectable(true);
-		submitRate.setVisible(false);
-		
-		
 		landlords.addItem();
+		
 		
 		landlords.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			  @Override
 			  public void itemClick(ItemClickEvent event) {
-				  rating.setVisible(true);
+				  ratingPanel.setVisible(true);
 				  landlordName.setValue("John Doe");
 				  landlordRating.setValue("Rating: 5");
-				  submitRate.setVisible(true);
-				  
-				  submitRate.addClickListener(new Button.ClickListener() {
-					
-					@Override
-					public void buttonClick(ClickEvent event) {
-						// TODO Auto-generated method stub
-						//Database stuff
-					}
-				});
-				
-				  
 			  //int landlordID = landlords.getValue().getID();
 			  //landlordName.setCaption(database.get(id = landlordID));
 			  //andlordRating.setCaption(database.getTotalRating / database.getNumberofRatings));
@@ -82,6 +96,11 @@ public class LandLordView extends LandLordViewDesign implements View{
 			});	
 		
 		System.out.println("Value"+landlords.getValue());
+		
+		addComponent(hlayout);
+		setComponentAlignment(hlayout,Alignment.TOP_LEFT);
+		setHeight("100%");
+		setMargin(true);
 		
 	}
     @Override
