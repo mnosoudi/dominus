@@ -47,7 +47,7 @@ public class Authorizer
 	 
 
 	 //password hasher method
-	 public String hashIt(String password)
+	 public static String hashIt(String password)
 	 {
 	        try {
 	            MessageDigest md = MessageDigest.getInstance("SHA-512");
@@ -71,11 +71,11 @@ public class Authorizer
 
 	 
 	 
-	 public boolean login(String username, String password)
+	 public boolean login(String email, String password)
 	 {
 		 //dummy database
-		 String hashedpass = hashIt("test12345");
-		 if(username.equals("username123") && password.equals(hashedpass))
+		 String hashedpass = hashIt(password);
+		 if(Database.getPassword(email).equals(hashedpass))
 			 return true;
 		 else
 			 return false;

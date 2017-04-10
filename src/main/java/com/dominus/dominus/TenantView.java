@@ -2,8 +2,6 @@ package com.dominus.dominus;
 
 import java.io.File;
 
-import org.h2.engine.Database;
-
 import com.vaadin.data.Item;
 import com.vaadin.event.ItemClickEvent;
 import com.vaadin.navigator.View;
@@ -85,13 +83,13 @@ public class TenantView extends TenantDesign implements View{
 		tenants.addItemClickListener(new ItemClickEvent.ItemClickListener() {
 			  @Override
 			  public void itemClick(ItemClickEvent event) {
-				  ratingPanel.setVisible(true);
-				  tenantName.setValue("John Doe");
-				  tenantRating.setValue("Rating: 5");
-			  //int tenantID = tenant.getValue().getID();
-			  //tenantName.setCaption(database.get(id = tenantID));
-			  //tenantRating.setCaption(database.getTotalRating / database.getNumberofRatings));
-			    
+				String email = "place@hol.der"; //email is not currently in table
+			  	Object rowId = tenants.getValue(); // get the selected rows id
+		      	String name = (String)tenants.getContainerProperty(tenant,"Landlords").getValue(); 
+			  	ratingPanel.setVisible(true);
+		      	tenantName.setValue(name);
+			  	int ratingeq = Database.getRatingTotal(email)/Database.getRatingSum(email);
+			  	tenantRating.setValue(Integer.toString(ratingeq));
 			  }
 			});	
 		

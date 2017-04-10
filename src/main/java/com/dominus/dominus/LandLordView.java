@@ -2,7 +2,6 @@ package com.dominus.dominus;
 
 import java.io.File;
 
-import org.h2.engine.Database;
 
 import com.vaadin.data.Item;
 import com.vaadin.event.ItemClickEvent;
@@ -81,17 +80,17 @@ public class LandLordView extends LandLordViewDesign implements View{
 		landlords.setSelectable(true);
 		landlords.addItem();
 		
-		
 		landlords.addItemClickListener(new ItemClickEvent.ItemClickListener() {
+			
 			  @Override
 			  public void itemClick(ItemClickEvent event) {
+				  String email = "place@hol.der"; //email is not currently in table
+				  Object rowId = landlords.getValue(); // get the selected rows id
+				  String name = (String)landlords.getContainerProperty(landlord,"Landlords").getValue(); 
 				  ratingPanel.setVisible(true);
-				  landlordName.setValue("John Doe");
-				  landlordRating.setValue("Rating: 5");
-			  //int landlordID = landlords.getValue().getID();
-			  //landlordName.setCaption(database.get(id = landlordID));
-			  //andlordRating.setCaption(database.getTotalRating / database.getNumberofRatings));
-			    
+				  landlordName.setValue(name);
+				  double ratingeq = Database.getRatingSum(email)/Database.getRatingTotal(email);
+				  landlordRating.setValue(Double.toString(ratingeq));
 			  }
 			});	
 		

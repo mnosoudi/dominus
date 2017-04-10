@@ -95,7 +95,7 @@ public class SignUpView extends SignUpViewDesign implements View {
                 //call success method if all of the fields are valid
             	else if(success == true)
             	{
-            		signupSuccess(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue());
+            		Database.signUp(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue());
             		getUI().getNavigator().navigateTo("search");
             	}
             	
@@ -105,8 +105,6 @@ public class SignUpView extends SignUpViewDesign implements View {
             
         });
     }
-    
-   
     
     //Failure Notification
 	 public void signupError(String message)
@@ -121,7 +119,7 @@ public class SignUpView extends SignUpViewDesign implements View {
 	 }
     
     //Send data to database and show Success Notification
-	 public void signupSuccess(String firstName, String lastName, String email, String password)
+	 public void signupSuccess()
 	 {
 		 String message;
 		 if (query.getValue().equals("Landlord")){
