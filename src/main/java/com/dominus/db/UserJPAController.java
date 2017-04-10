@@ -13,18 +13,22 @@ import com.dominus.dominus.Tenant;
 public class UserJPAController {
 
 	EntityManagerFactory emf;
-	
 	public UserJPAController(EntityManagerFactory emf){
 		this.emf = emf;
+		EntityManager em = emf.createEntityManager();
+		//Tenant tnt = new Tenant(em);
+		
 	}
-	public void create(Tenant user) throws IOException{
+	public void create(Tenant tnt) throws IOException{
 		EntityManager em = this.getEntityManager();
 		EntityTransaction tx = em.getTransaction();
-		tx.begin();
+		tx.begin();	
+		em.persist(tnt);
+		
 		//WRIT
 		tx.commit();
 	}
-	public Tenant findUserUsingId(String id){
+	public Tenant findUserUsingId(int id){
 		EntityManager em = this.getEntityManager();
 		//error handling
 		return em.find(Tenant.class, id);

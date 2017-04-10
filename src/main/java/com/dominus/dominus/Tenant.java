@@ -1,6 +1,7 @@
 package com.dominus.dominus;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityManager;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -9,7 +10,7 @@ import javax.persistence.Id;
 public class Tenant {
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO) 
-	private Long ID_Tenant;
+	private int ID_Tenant;
 	private String FirstName;
 	private String LastName;
 	private int Rating;
@@ -17,11 +18,24 @@ public class Tenant {
 	private String Password;
 	private String Email;
 	private int ID_Landlord;
-	public Long getID_Tenant() {
-		return ID_Tenant;
+	protected EntityManager em;		
+		
+
+	public Tenant(){
 		
 	}
-	public void setID_Tenant(Long iD_Tenant) {
+	
+	
+	public Tenant(EntityManager em) {
+  			    this.em = em;
+  			  }	
+	
+	public int getID_Tenant() {
+		return ID_Tenant;
+
+		
+	}
+	public void setID_Tenant(int iD_Tenant) {
 		ID_Tenant = iD_Tenant;
 	}
 	public String getFirstName() {
