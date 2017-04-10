@@ -46,62 +46,63 @@ public class SignUpView extends SignUpViewDesign implements View {
             	boolean success = true;
             	
             	//Validating the first name
-            	if(!validate.validateName(firstName.getValue()) && success==true)
+            	if(!validate.validateName(firstName.getValue()))
             	{
             		signupError("Make sure you entered a valid first name");
             		success = false;
             	}
             	
             	//Validating the last name
-            	if(!validate.validateName(lastName.getValue()) && success==true)
+            	else if(!validate.validateName(lastName.getValue()))
             	{
             		signupError("Make sure you entered a valid last name");
             		success = false;
             	}
             	
             	//Validating the email 
-            	if(!validate.validateEmail(email.getValue()) && success==true)
+            	else if(!validate.validateEmail(email.getValue()))
             	{
             		signupError("Make sure you entered a valid email");
             		success = false;
             	}
             	
             	//Validating the password
-            	if(!validate.validatePassword(password.getValue()) && success==true)
+            	else if(!validate.validatePassword(password.getValue()))
             	{
             		signupError("Make sure you entered a valid password");
             		success = false;
             	}
             	
             	//Both passwords match 
-            	if(!(password.getValue().equals(confirmpass.getValue())) && success== true)
+            	else if(!(password.getValue().equals(confirmpass.getValue())))
             	{
             		signupError("Make sure both passwords match");
             		success = false;
             	}
             	
             	//Terms and Conditions
-            	if(!checkAgree.getValue() && success==true)
+            	else if(!checkAgree.getValue())
             	{
             		signupError("Make sure to agree to the Terms and Conditions");
             		success = false;
             	}
+            	
+            	else if(query.getValue() == null){
+            		signupError("Are you a Tenant or a Landlord?");
+            		success = false;
+            	}
             		
                 //call success method if all of the fields are valid
-            	if(success == true)
+            	else if(success == true)
             	{
-            		signupSuccess(firstName.getValue(), lastName.getValue(), email.getValue(), password.getValue());
+            		Database.signUp(firstName.getValue(), lastName.getValue(), email.getValue(), Authorizer.hashIt(password.getValue()));
             		getUI().getNavigator().navigateTo("search");
             	}
-            	
-            	
             	
             }
             
         });
     }
-    
-   
     
     //Failure Notification
 	 public void signupError(String message)
@@ -116,7 +117,7 @@ public class SignUpView extends SignUpViewDesign implements View {
 	 }
     
     //Send data to database and show Success Notification
-	 public void signupSuccess(String firstName, String lastName, String email, String password)
+	 public void signupSuccess()
 	 {
 		 String message;
 		 if (query.getValue().equals("Landlord")){

@@ -25,7 +25,7 @@ public class Authorizer
 	 
 	 public boolean authorize(String username, String password) throws NoSuchAlgorithmException
 	 {
-		 Pattern pattern = Pattern.compile("\\b[a-zA-Z][a-zA-Z0-9\\-._]{7,}\\b");
+		 Pattern pattern = Pattern.compile("\\b[a-zA-Z][a-zA-Z0-9\\-._@]{7,}\\b");
 		 Matcher unamematcher = pattern.matcher(username);
 		 Matcher pwdmatcher = pattern.matcher(password);
 		 boolean success = false;
@@ -33,9 +33,10 @@ public class Authorizer
 			 if(unamematcher.matches() && pwdmatcher.matches()){
 				 String hashedpass;
 				 hashedpass = hashIt(password);
-				 if(login(username, hashedpass))
+				 if(login(username, hashedpass)){
 					 VaadinSession.getCurrent().setAttribute("user", username);
 					 success = true;
+				 }
 			 }
 			 else
 				 success = false;
@@ -46,10 +47,10 @@ public class Authorizer
 	 
 
 	 //password hasher method
-	 public String hashIt(String password)
+	 public static String hashIt(String password)
 	 {
 	        try {
-	            MessageDigest md = MessageDigest.getInstance("MD5");
+	            MessageDigest md = MessageDigest.getInstance("SHA-512");
 	            md.update(password.getBytes());
 	            byte[] bytes = md.digest();
 	            //convert string to hex
@@ -70,11 +71,11 @@ public class Authorizer
 
 	 
 	 
-	 public boolean login(String username, String password)
+	 public boolean login(String email, String password)
 	 {
 		 //dummy database
-		 String hashedpass = hashIt("test12345");
-		 if(username.equals("username123") && password.equals(hashedpass))
+		 String hashedpass = hashIt(password);
+		 if((Database.getPassword(email).equals(hashedpass)) || (email.equals("test@email.com") && password.equals(hashIt("password123"))))
 			 return true;
 		 else
 			 return false;

@@ -1976,6 +1976,86 @@ div.v-layout.v-horizontal.v-widget {
 	width: 100% !important;
 }
 
+.tiles {
+	padding: 6.16667px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.tiles .padding {
+	padding: 12.33333px;
+}
+
+.tiles .padding-top {
+	padding-top: 12.33333px;
+}
+
+.tiles .padding-right {
+	padding-right: 12.33333px;
+}
+
+.tiles .padding-bottom {
+	padding-bottom: 12.33333px;
+}
+
+.tiles .padding-left {
+	padding-left: 12.33333px;
+}
+
+.tiles .row {
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+}
+
+.tiles .tile {
+	float: left;
+	padding: 6.16667px;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+}
+
+.tiles .title {
+	font-size: 16px;
+	color: #197de1;
+	text-transform: uppercase;
+	margin-bottom: 9.25px;
+}
+
+.tiles .tile-content {
+	background: white;
+	border: 1px solid #efefef;
+	font-size: 14.4px;
+}
+
+.tiles .full {
+	width: 100%;
+}
+
+.tiles .two-thirds {
+	width: 66.66%;
+}
+
+.tiles .half {
+	width: 50%;
+}
+
+.tiles .third {
+	width: 33.33%;
+}
+
+.tiles .quarter {
+	width: 25%;
+}
+
+.tiles[width-range~="-750px"] .two-thirds, .tiles[width-range~="-750px"] .half, .tiles[width-range~="-750px"] .third, .tiles[width-range~="-750px"] .quarter {
+	width: 100%;
+}
+
 .mytheme.v-app, .mytheme.v-app-loading {
 	font: 300 16px/1.55 "Open Sans", sans-serif;
 	color: #464646;

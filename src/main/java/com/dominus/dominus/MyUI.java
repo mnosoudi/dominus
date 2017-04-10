@@ -1,5 +1,10 @@
 package com.dominus.dominus;
 
+import java.util.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.annotation.WebServlet;
 
 import com.vaadin.annotations.Theme;
